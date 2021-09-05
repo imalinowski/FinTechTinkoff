@@ -3,16 +3,24 @@ package com.malinowski.memloader
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Replay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,21 +44,13 @@ fun MemScreen() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = "Developers Life",
-            modifier = Modifier,
+            modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp
         )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ) {
-            val modifier = Modifier.weight(1.0f)
-            Text(text = "Последнее", modifier, textAlign = TextAlign.Center)
-            Text(text = "Лучшее", modifier, textAlign = TextAlign.Center)
-            Text(text = "Горячее", modifier, textAlign = TextAlign.Center)
-        }
+        MemNavigator()
+
         Box(
             modifier = Modifier
                 .weight(2.0f)
@@ -59,13 +59,45 @@ fun MemScreen() {
         ) {
             Card(bitmap = createImage(300, 300, Color.White))
         }
+
         Row(
             Modifier.padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             MemButtons()
         }
+    }
+}
+@Composable
+fun MemNavigator(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp)
+    ) {
+        val modifier = Modifier.weight(1.0f).clickable { }.height(40.dp)
+        Text(text = "Последнее", modifier ,
+            textAlign = TextAlign.Center,
+            color = colorResource(R.color.tinkoff_blue),
+            fontWeight = FontWeight.Bold)
+        Text(text = "Лучшее", modifier,
+            textAlign = TextAlign.Center)
+        Text(text = "Горячее", modifier,
+            textAlign = TextAlign.Center)
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp)
+    ) {
+        val modifier = Modifier.weight(1.0f).height(2.dp)
+        Spacer(modifier = modifier
+            .background(colorResource(R.color.tinkoff_blue))
+            .clip(RoundedCornerShape(1.dp))
+        )
+        Spacer(modifier = modifier)
+        Spacer(modifier = modifier)
     }
 }
 @Composable
