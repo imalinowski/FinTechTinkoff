@@ -2,6 +2,7 @@ package com.malinowski.memloader.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.toolbox.StringRequest
@@ -14,8 +15,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val mem = MutableLiveData<Mem>().apply {
         value = Mem("","")
     }
+    private val memStorage = mutableListOf<Mem>()
+    var curMem = mutableStateOf(0)
+
     private val queue = Volley.newRequestQueue(getApplication())
     init{ randomMem() }
+
     fun randomMem(){
         queue.add(StringRequest(
             Request.Method.GET,
@@ -25,12 +30,28 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 val obj = JSONObject(response)
                 if(!obj.has("description") || !obj.has("gifURL"))
                     randomMem()
-                else mem.postValue(
-                    Mem(obj.getString("description"),
-                        obj.getString("gifURL").replace("http","https")
+                else{
+                    memStorage.add(
+                        Mem(obj.getString("description"),
+                            obj.getString("gifURL").replace("http","https")
+                        )
                     )
-                )
+                    if(curMem.value < memStorage.size)
+                        mem.postValue(memStorage[curMem.value])
+                }
             },
         ) { error -> Log.e("RASP", error.message.toString()) })
+    }
+
+    fun nextMem(){
+        curMem.value += 1
+        if(curMem.value >= memStorage.size) randomMem()
+        else mem.postValue(memStorage[curMem.value])
+    }
+
+    fun prevMem(){
+        if(curMem.value > 0) curMem.value -=1
+        if(curMem.value < memStorage.size)
+            mem.postValue(memStorage[curMem.value])
     }
 }

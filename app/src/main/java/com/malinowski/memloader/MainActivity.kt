@@ -122,10 +122,11 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MemButtons() {
         OutlinedButton(
-            onClick = { },
+            onClick = { viewModel.prevMem() },
             modifier = Modifier.size(60.dp),
             shape = CircleShape,
-            elevation = ButtonDefaults.elevation()
+            elevation = ButtonDefaults.elevation(),
+            enabled = viewModel.curMem.value != 0
         ) {
             Icon(
                 Icons.Rounded.Replay, "Icon",
@@ -135,7 +136,7 @@ class MainActivity : ComponentActivity() {
         }
 
         OutlinedButton(
-            onClick = { viewModel.randomMem() },
+            onClick = { viewModel.nextMem() },
             modifier = Modifier.size(60.dp),
             shape = CircleShape,
             elevation = ButtonDefaults.elevation()
@@ -143,7 +144,7 @@ class MainActivity : ComponentActivity() {
             Icon(
                 Icons.Rounded.ArrowForward, "Icon",
                 modifier = Modifier.fillMaxSize(),
-                tint = Color.Green,
+                tint = MaterialTheme.colors.primary,
             )
         }
     }

@@ -42,7 +42,7 @@ fun Card(modifier: Modifier = Modifier, mem_: Mem){
         GlideImage(
             imageModel = mem.value.gifUrl,
             modifier = modifier.fillMaxSize(),
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
             // shows a progress indicator when loading an image.
             loading = {
                 ConstraintLayout(
