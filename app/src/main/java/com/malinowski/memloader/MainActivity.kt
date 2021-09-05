@@ -12,8 +12,6 @@ import androidx.compose.material.icons.rounded.Replay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -59,42 +57,45 @@ fun MemScreen() {
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            Card(bitmap = createImage(300, 300, Color.Yellow))
+            Card(bitmap = createImage(300, 300, Color.White))
         }
         Row(
             Modifier.padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            OutlinedButton(
-                onClick = { },
-                modifier = Modifier.size(60.dp),
-                shape = CircleShape,
-                elevation = ButtonDefaults.elevation(defaultElevation = 1.dp)
-            ) {
-                Icon(
-                    Icons.Rounded.Replay, "Icon",
-                    modifier = Modifier.fillMaxSize(),
-                    tint = MaterialTheme.colors.primaryVariant
-                )
-            }
-
-            OutlinedButton(
-                onClick = { },
-                modifier = Modifier.size(60.dp),
-                shape = CircleShape,
-                elevation = ButtonDefaults.elevation(defaultElevation = 1.dp)
-            ) {
-                Icon(
-                    Icons.Rounded.ArrowForward, "Icon",
-                    modifier = Modifier.fillMaxSize(),
-                    tint = MaterialTheme.colors.primaryVariant,
-                )
-            }
+            MemButtons()
         }
     }
 }
+@Composable
+fun MemButtons(){
+    OutlinedButton(
+        onClick = { },
+        modifier = Modifier.size(60.dp),
+        shape = CircleShape,
+        elevation = ButtonDefaults.elevation()
+    ) {
+        Icon(
+            Icons.Rounded.Replay, "Icon",
+            modifier = Modifier.fillMaxSize(),
+            tint = MaterialTheme.colors.primary
+        )
+    }
 
+    OutlinedButton(
+        onClick = { },
+        modifier = Modifier.size(60.dp),
+        shape = CircleShape,
+        elevation = ButtonDefaults.elevation()
+    ) {
+        Icon(
+            Icons.Rounded.ArrowForward, "Icon",
+            modifier = Modifier.fillMaxSize(),
+            tint = Color.Green,
+        )
+    }
+}
 @Preview(
     showBackground = true
 )
