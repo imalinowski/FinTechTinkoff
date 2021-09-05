@@ -6,7 +6,6 @@ import android.graphics.Paint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun card(modifier: Modifier = Modifier, bitmap: ImageBitmap){
+fun Card(modifier: Modifier = Modifier, bitmap: ImageBitmap){
     Image(
         bitmap = bitmap,
         contentDescription = "card",
@@ -32,7 +31,7 @@ fun card(modifier: Modifier = Modifier, bitmap: ImageBitmap){
 @Preview
 @Composable
 fun cardPreview(){
-    card(bitmap = createImage(300,400, Color.Cyan))
+    Card(bitmap = createImage(300,400, Color.Cyan))
 }
 fun createImage(width: Int, height: Int, color: Color): ImageBitmap {
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
