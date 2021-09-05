@@ -1,4 +1,4 @@
-package com.malinowski.memloader
+package com.malinowski.memloader.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,21 +14,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Replay
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.malinowski.memloader.R
 import com.malinowski.memloader.model.Mem
 import com.malinowski.memloader.ui.theme.MemLoaderTheme
 import com.malinowski.memloader.viewmodel.MainActivityViewModel
@@ -87,7 +83,7 @@ class MainActivity : ComponentActivity() {
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp)
         ) {
-            val modifier = Modifier.weight(1.0f).clickable { }.height(40.dp)
+            val modifier = Modifier.weight(1.0f).clip(RoundedCornerShape(3.dp)).clickable { }.height(40.dp)
             Text(
                 text = "Последнее", modifier,
                 textAlign = TextAlign.Center,

@@ -21,7 +21,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val queue = Volley.newRequestQueue(getApplication())
     init{ randomMem() }
 
-    fun randomMem(){
+    private fun randomMem(){
         queue.add(StringRequest(
             Request.Method.GET,
             "https://developerslife.ru/random?json=true",
@@ -40,11 +40,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                         mem.postValue(memStorage[curMem.value])
                 }
             },
-        ) { error -> Log.e("RASP", error.message.toString()) })
+        ) { error ->
+                mem.postValue(Mem("",""))
+                Log.e("RASP", error.message.toString())
+        })
     }
 
     fun nextMem(){
-        curMem.value += 1
+        if(mem.value != Mem("","")) curMem.value += 1
         if(curMem.value >= memStorage.size) randomMem()
         else mem.postValue(memStorage[curMem.value])
     }
