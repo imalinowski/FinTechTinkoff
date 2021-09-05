@@ -13,7 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Replay
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -78,26 +78,29 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun MemNavigator() {
+        var curCategory by remember { mutableStateOf(0) }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp)
         ) {
-            val modifier = Modifier.weight(1.0f).clip(RoundedCornerShape(3.dp)).clickable { }.height(40.dp)
-            Text(
-                text = "Последнее", modifier,
-                textAlign = TextAlign.Center,
-                color = colorResource(R.color.tinkoff_blue),
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "Лучшее", modifier,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = "Горячее", modifier,
-                textAlign = TextAlign.Center
-            )
+            val modifier = Modifier.weight(1.0f).clip(RoundedCornerShape(3.dp)).height(40.dp)
+            val categories = listOf("Последнее","Лучшее","Горячее")
+            for ((i,v) in categories.withIndex()){
+                if (curCategory == i) Text(
+                    text = v, modifier.clickable { curCategory = i },
+                    textAlign = TextAlign.Center,
+                    color = colorResource(R.color.tinkoff_blue),
+                    fontWeight = FontWeight.Bold
+                )
+                else Text(
+                    text = v, modifier.clickable {
+                        curCategory = i
+                        viewModel.nextMem()
+                    },
+                    textAlign = TextAlign.Center
+                )
+            }
         }
         Row(
             modifier = Modifier
@@ -105,13 +108,13 @@ class MainActivity : ComponentActivity() {
                 .padding(horizontal = 10.dp)
         ) {
             val modifier = Modifier.weight(1.0f).height(2.dp)
-            Spacer(
-                modifier = modifier
-                    .background(colorResource(R.color.tinkoff_blue))
-                    .clip(RoundedCornerShape(1.dp))
-            )
-            Spacer(modifier = modifier)
-            Spacer(modifier = modifier)
+            for (i in 0..2)
+                Spacer(
+                    modifier =
+                    if(curCategory == i)
+                        modifier.background(colorResource(R.color.tinkoff_blue))
+                    else modifier
+                )
         }
     }
 
