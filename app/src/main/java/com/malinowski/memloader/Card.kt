@@ -7,9 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowForward
+import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -61,15 +62,31 @@ fun Card(modifier: Modifier = Modifier, mem_: Mem){
             },
             // shows an error text message when request failed.
             failure = {
-                Text(text = "image request failed.", modifier = Modifier.fillMaxSize(), textAlign = TextAlign.Center)
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        Icons.Rounded.Cloud, "Cloud",
+                        modifier = Modifier.size(50.dp),
+                        tint = Color.DarkGray,
+                    )
+                    Text(text = "Произошла ошибка при загрузке данных. Проверьте подключение к сети.",
+                        modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+
+                }
             })
         Box(
-            modifier = Modifier.fillMaxWidth().height(50.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
                 .background(
-                Brush.verticalGradient(
-                    listOf(Color.Transparent, Color.Gray),
+                    Brush.verticalGradient(
+                        listOf(Color.Transparent, Color.Gray),
+                    )
                 )
-                ).constrainAs(gradient) {
+                .constrainAs(gradient) {
                     bottom.linkTo(parent.bottom)
                 }
         ) {}
